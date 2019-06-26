@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="resources">
+    <file>icons/main/icons8-stop-32.png</file>
+    <file>icons/main/icons8-play-32.png</file>
+    <file>icons/main/icons8-double-left-32.png</file>
+    <file>icons/main/icons8-double-right-32.png</file>
+    <file>icons/main/icons8-folder-32.png</file>
+    <file>icons/main/icons8-refresh-32.png</file>
+    <file>icons/menu/icons8-add-file-32.png</file>
+    <file>icons/main/worms.png</file>
+    <file>icons/menu/icons8-exit-32.png</file>
+  </qresource>
+</RCC>
