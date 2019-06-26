@@ -9,7 +9,6 @@ class Match:
         # Define all initial variables to None so that our UI can display empty labels
         self.error = None
         self.match_directory = None
-        self.current_move = None
         self.players = None
         self.rounds = None
         self.current_state = None
@@ -36,7 +35,10 @@ class Match:
             return {}
 
     def set_current_move(self, round_, player):
-        self.current_state = self.rounds[round_].states[player]
+        if round_ is not None or player is not None:
+            self.current_state = self.rounds[round_].states[player]
+        else:
+            self.current_state = None
 
 
 

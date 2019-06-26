@@ -74,11 +74,15 @@ class MatchViewGroup(QGroupBox):
             self.load_match(directory)
 
     def move_selected(self, *args):
-        index = args[0].indexes()[0]
-        if index.child(0, 0).isValid():
-            self.moves_tree.setCurrentIndex(index.child(0, 0))
+        index_array = args[0].indexes()
+        if len(index_array):
+            index = index_array[0]
+            if index.child(0, 0).isValid():
+                self.moves_tree.setCurrentIndex(index.child(0, 0))
+            else:
+                self.current_match.set_current_move(index.parent().data(), index.data())
         else:
-            self.current_match.set_current_move(index.parent().data(), index.data())
+            self.current_match.set_current_move(None, None)
 
     def load_match(self, directory):
         self.current_match = Match(directory)
