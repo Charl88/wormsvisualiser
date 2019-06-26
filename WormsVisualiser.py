@@ -10,10 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 if __name__ == '__main__':
-    try:
-        app = QApplication([])
-        application = MainWindow()
-        application.show()
-        app.exec()
-    except Exception as e:
-        logger.error(e)
+    app = QApplication([])
+    application = MainWindow()
+    application.show()
+    app.exec()
