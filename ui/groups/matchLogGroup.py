@@ -33,11 +33,16 @@ class MatchLogGroup(QGroupBox):
         self.select_new_directory_button.setIcon(QIcon(':resources/icons/main/icons8-folder-32.png'))
         self.grid_layout.addWidget(self.select_new_directory_button, 0, 1)
 
+        # Match logs refresh button
+        self.refresh_directory_button = QPushButton()
+        self.refresh_directory_button.setIcon(QIcon(':resources/icons/main/icons8-refresh-32.png'))
+        self.grid_layout.addWidget(self.refresh_directory_button, 0, 2)
+
         # Match logs
         self.match_logs_list = QListView()
         self.match_logs_list.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.match_logs_list.setSelectionRectVisible(True)
-        self.grid_layout.addWidget(self.match_logs_list, 1, 0, 1, 2)
+        self.grid_layout.addWidget(self.match_logs_list, 1, 0, 1, 3)
         self.match_logs_list_model = QStandardItemModel()
         self.match_logs_list.setModel(self.match_logs_list_model)
 
@@ -58,4 +63,9 @@ class MatchLogGroup(QGroupBox):
         self.settings.sync()
         self.current_directory_line.setText(directory)
         self.load_matches()
+
+    def directory_refreshed(self):
+        self.match_logs_list_model.clear()
+        self.load_matches()
+
 

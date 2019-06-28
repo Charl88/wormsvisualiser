@@ -96,14 +96,18 @@ class MatchViewGroup(QGroupBox):
                     if field_['name'] == 'worm':
                         field = QLabel()
                         field.setPixmap(QPixmap(field_['resource']))
-                        layout_.addWidget(field)
+                        layout_.addWidget(field, index-1, 0)
                     else:
                         field_label = QLabel()
                         field_label.setText(field_['label'])
                         field = QLabel()
-                        group.fields[field_['name']] = field
-                        layout_.addWidget(field_label, index, 0)
-                        layout_.addWidget(field, index, 1)
+                        if field_['label'] != '':
+                            group.fields[field_['name']] = field
+                            layout_.addWidget(field_label, index, 0)
+                            layout_.addWidget(field, index, 1)
+                        else:
+                            group.fields[field_['name']] = field
+                            layout_.addWidget(field, index, 1)
             if 'groups' in group_:
                 self.populate_fields(group_, layout_, index + 1)
 

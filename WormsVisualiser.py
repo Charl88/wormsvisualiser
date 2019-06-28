@@ -28,5 +28,5 @@ if __name__ == '__main__':
     app = QApplication([])
     ui_template_path = os.path.join('ui', 'ui.json')
     application = MainWindow(ui_template_path)
-    application.show()
+    application.showMaximized()
     app.exec()

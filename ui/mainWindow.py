@@ -85,6 +85,9 @@ class MainWindow(QMainWindow):
         self.groups['match_log_group'].match_logs_list.selectionModel().selectionChanged.connect(
             self.groups['match_view_group'].match_selected
         )
+        self.groups['match_log_group'].refresh_directory_button.clicked.connect(
+            self.groups['match_log_group'].directory_refreshed
+        )
         self.groups['match_view_group'].rounds_list.selectionModel().selectionChanged.connect(
             self.groups['match_view_group'].round_selected
         )

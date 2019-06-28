@@ -9,8 +9,8 @@ class Round:
         self.match = match
         self.state = self.load_json_states(os.path.join(match.match_directory, round_folder))
         self.player_command = {}
-        for player in self.match.players:
-            self.player_command[player] = self.parse_command(round_folder, player)
+        for key, value in self.match.players.items():
+            self.player_command[key] = self.parse_command(round_folder, key)
 
     def load_json_states(self, round_folder):
         states = {}
@@ -31,7 +31,7 @@ class Round:
         command = {}
         file_path = os.path.join(self.match.match_directory, round_, player, 'PlayerCommand.txt')
         file = open(file_path, 'r')
-        command['player'] = player
+        command['player'] = player.split(' - ')[1]
         command['command'] = file.readline().strip().split(': ')[1]
         command['time'] = file.readline().strip().split(': ')[1]
         command['exception'] = file.readline().strip().split(': ')[1]
