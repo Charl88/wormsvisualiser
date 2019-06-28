@@ -1,1 +1,2 @@
+pyqtdeploy
 pyqt5

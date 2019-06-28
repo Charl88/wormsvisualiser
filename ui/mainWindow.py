@@ -1,27 +1,35 @@
 ﻿# -*- coding: utf-8 -*-
+import json
+
 from PyQt5.QtWidgets import QMainWindow, QLabel, QMenu, QStatusBar, QMenuBar, QAction, QGridLayout, QWidget
 from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QIcon
 
-from helpers import import_settings
+from settings import import_settings
 
-from ui.matchLogGroup import MatchLogGroup
-from ui.matchViewGroup import MatchViewGroup
+from ui.groups.matchLogGroup import MatchLogGroup
+from ui.groups.matchViewGroup import MatchViewGroup
+
+groupType = {
+    'MatchLogGroup': MatchLogGroup,
+    'MatchViewGroup': MatchViewGroup,
+}
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, ui_template_path, *args, **kwargs):
         """
         Initialise the MainWindow
         """
         super(MainWindow, self).__init__(*args, **kwargs)
 
         # Import settings
+        self.ui_template = json.load(open(ui_template_path, 'r'))
         self.settings = import_settings()
 
         self.setWindowTitle('Worms Visualiser')
-        self.setWindowIcon(QIcon(':resources/icons/main/worms.png'))
-        self.setGeometry(200, 200, 1200, 600)
+        self.setWindowIcon(QIcon(':resources/icons/main/worm.png'))
+        self.setGeometry(350, 40, 1200, 980)
 
         # Status bar
         self.status_bar = QStatusBar()
@@ -34,7 +42,7 @@ class MainWindow(QMainWindow):
         # Menu bar
         self.menu_bar = QMenuBar()
         self.setMenuBar(self.menu_bar)
-        self.menu_bar.setGeometry(QRect(0, 0, 800, 21))
+        # self.menu_bar.setGeometry(QRect(0, 0, 800, 21))
         # File menu
         self.menu_file = QMenu()
         self.menu_file.setTitle('File')
@@ -47,30 +55,36 @@ class MainWindow(QMainWindow):
         self.exit_action.setStatusTip('Exit the application')
         self.menu_file.addAction(self.exit_action)
 
-        # Match logs
-        self.match_log_group = MatchLogGroup()
-
-        # Match view
-        self.match_view_group = MatchViewGroup()
-
         # Layout
         self.grid_layout = QGridLayout()
         self.grid_layout.setColumnStretch(1, 1)
-        self.grid_layout.addWidget(self.match_log_group, 0, 0)
-        self.grid_layout.addWidget(self.match_view_group, 0, 1)
 
         # Central widget
         self.central_widget = QWidget()
         self.central_widget.setLayout(self.grid_layout)
         self.setCentralWidget(self.central_widget)
 
+        """
+        Groups
+        """
+        self.groups = {}
+        for group in self.ui_template['groups']:
+            group_object = groupType[group['type']](group)
+            self.groups[group['name']] = group_object
+            self.grid_layout.addWidget(group_object, group['row'], group['col'])
+
         """ 
         Signals 
         """
-        # Signal when a new match is selected
-        self.match_log_group.match_logs_list.selectionModel().selectionChanged.connect(
-            self.match_view_group.match_selected)
-
-        # Signal when a new round is selected
-        self.match_view_group.moves_tree.selectionModel().selectionChanged.connect(
-            self.match_view_group.move_selected)
+        self.groups['match_log_group'].select_new_directory_button.clicked.connect(
+            self.groups['match_log_group'].change_directory
+        )
+        self.groups['match_log_group'].current_directory_line.textChanged.connect(
+            self.groups['match_view_group'].match_directory_changed
+        )
+        self.groups['match_log_group'].match_logs_list.selectionModel().selectionChanged.connect(
+            self.groups['match_view_group'].match_selected
+        )
+        self.groups['match_view_group'].rounds_list.selectionModel().selectionChanged.connect(
+            self.groups['match_view_group'].round_selected
+        )

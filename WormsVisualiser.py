@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
+import os
 import logging
 from traceback import format_exception
 from PyQt5.QtWidgets import QApplication
@@ -25,6 +26,7 @@ def except_hook(type_, value, traceback):
 if __name__ == '__main__':
     sys.excepthook = except_hook
     app = QApplication([])
-    application = MainWindow()
-    application.showMaximized()
+    ui_template_path = os.path.join('ui', 'ui.json')
+    application = MainWindow(ui_template_path)
+    application.show()
     app.exec()

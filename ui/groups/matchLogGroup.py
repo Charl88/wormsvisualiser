@@ -1,19 +1,19 @@
 ﻿# -*- coding: utf-8 -*-
 import os
-from PyQt5.QtWidgets import QGroupBox, QGridLayout, QListView, QLineEdit, QPushButton, QAbstractItemView
+from PyQt5.QtWidgets import QGroupBox, QGridLayout, QListView, QLineEdit, QPushButton, QAbstractItemView, QFileDialog
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
-from PyQt5.QtCore import pyqtSignal
-from helpers import import_settings
+from settings import import_settings
 
 
 class MatchLogGroup(QGroupBox):
     """
     MatchLogGroup
     """
-    def __init__(self):
+    def __init__(self, ui_template):
         super(MatchLogGroup, self).__init__()
 
         # Import settings
+        self.ui_template = ui_template
         self.settings = import_settings()
 
         self.setTitle('Match Logs')
@@ -45,7 +45,17 @@ class MatchLogGroup(QGroupBox):
 
     def load_matches(self):
         directory = self.settings.value('match_logs_directory')
-        names = [name for name in os.listdir(directory) if os.path.isdir(os.path.join(directory, name))]
-        for name in names:
-            item = QStandardItem(name)
-            self.match_logs_list_model.appendRow(item)
+        if os.path.isdir(directory):
+            names = [name for name in os.listdir(directory) if os.path.isdir(os.path.join(directory, name))]
+            for name in names:
+                item = QStandardItem(name)
+                self.match_logs_list_model.appendRow(item)
+
+    def change_directory(self):
+        self.match_logs_list_model.clear()
+        directory = QFileDialog.getExistingDirectory(QFileDialog(), 'Select Directory')
+        self.settings.setValue('match_logs_directory', directory)
+        self.settings.sync()
+        self.current_directory_line.setText(directory)
+        self.load_matches()
+
