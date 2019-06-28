@@ -7,7 +7,13 @@
     <file>icons/main/icons8-folder-32.png</file>
     <file>icons/main/icons8-refresh-32.png</file>
     <file>icons/menu/icons8-add-file-32.png</file>
-    <file>icons/main/worms.png</file>
+    <file>icons/main/worm.png</file>
     <file>icons/menu/icons8-exit-32.png</file>
+    <file>icons/map/dirt.png</file>
+    <file>icons/map/space.png</file>
+    <file>icons/map/air.png</file>
+    <file>icons/map/wormA.png</file>
+    <file>icons/map/wormB.png</file>
+    <file>icons/map/powerup-health.png</file>
   </qresource>
 </RCC>

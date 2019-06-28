@@ -1,0 +1,170 @@
+{
+  "groups": [
+    {
+      "name": "match_log_group",
+      "type": "MatchLogGroup",
+      "row": 0,
+      "col": 0
+    },
+    {
+      "name": "match_view_group",
+      "type": "MatchViewGroup",
+      "row": 0,
+      "col": 1,
+      "groups": [
+        {
+          "name": "match_info_group",
+          "title": "Match Info",
+          "row": 0,
+          "col": 1,
+          "fields": [
+            {
+              "name": "currentRound",
+              "label": "Current Round: "
+            },
+            {
+              "name": "maxRounds",
+              "label": "Max Rounds: "
+            },
+            {
+              "name": "pushbackDamage",
+              "label": "Pushback Damage: "
+            },
+            {
+              "name": "mapSize",
+              "label": "Map Size: "
+            },
+            {
+              "name": "currentWormId",
+              "label": "Current Worm ID: "
+            },
+            {
+              "name": "consecutiveDoNothingCount",
+              "label": "Consecutive Do-Nothing Count: "
+            }
+          ]
+        },
+        {
+          "name": "move_info_group",
+          "title": "Move Info",
+          "row": 0,
+          "col": 2,
+          "groups": [
+            {
+              "name": "player_A_move_info_group",
+              "title": "Player A",
+              "row": 0,
+              "col": 0,
+              "fields": [
+                {
+                  "name": "player",
+                  "label": ""
+                },
+                {
+                  "name": "worm",
+                  "resource": ":resources/icons/map/wormA.png"
+                },
+                {
+                  "name": "command",
+                  "label": "Command: "
+                },
+                {
+                  "name": "time",
+                  "label": "Execution Time: "
+                },
+                {
+                  "name": "exception",
+                  "label": "Exception: "
+                }
+              ]
+            },
+            {
+              "name": "player_B_move_info_group",
+              "title": "Player B",
+              "row": 0,
+              "col": 1,
+              "fields": [
+                {
+                  "name": "player",
+                  "label": ""
+                },
+                {
+                  "name": "worm",
+                  "resource": ":resources/icons/map/wormB.png"
+                },
+                {
+                  "name": "command",
+                  "label": "Command: "
+                },
+                {
+                  "name": "time",
+                  "label": "Execution Time: "
+                },
+                {
+                  "name": "exception",
+                  "label": "Exception: "
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "player_A_info_group",
+          "title": "Player A",
+          "row": 3,
+          "col": 1,
+          "fields": [
+            {
+              "name": "id",
+              "label": "ID: "
+            },
+            {
+              "name": "score",
+              "label": "Score :"
+            },
+            {
+              "name": "health",
+              "label": "Health :"
+            },
+            {
+              "name": "currentWormId",
+              "label": "Current Worm ID :"
+            },
+            {
+              "name": "remainingWormSelections",
+              "label": "Remaining Worm Selections :"
+            }
+          ]
+        },
+        {
+          "name": "player_B_info_group",
+          "title": "Player B",
+          "row": 3,
+          "col": 2,
+          "fields": [
+            {
+              "name": "id",
+              "label": "ID: "
+            },
+            {
+              "name": "score",
+              "label": "Score :"
+            },
+            {
+              "name": "health",
+              "label": "Health :"
+            },
+            {
+              "name": "currentWormId",
+              "label": "Current Worm ID :"
+            },
+            {
+              "name": "remainingWormSelections",
+              "label": "Remaining Worm Selections :"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -14,6 +14,11 @@ def import_settings():
         return QSettings('settings.ini', QSettings.IniFormat)
     else:
         f = open('settings.ini', 'w+')
-        f.write('[General]\n')
+        write_default_settings(f)
         f.close()
         return QSettings('settings.ini', QSettings.IniFormat)
+
+
+def write_default_settings(f):
+    f.write('[General]\n')
+    f.write('match_logs_directory=\n')
