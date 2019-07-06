@@ -10,7 +10,7 @@ class Match:
         self.match_directory = None
         self.players = None
         self.rounds = None
-        self.state = None
+        self.state = {}
         self.current_round = None
         self.end_game_state = None
 

@@ -2,7 +2,7 @@
 import os
 from PyQt5.QtWidgets import QGroupBox, QGridLayout, QListView, QAbstractItemView, QLabel, QTextBrowser, \
     QVBoxLayout, QGraphicsView, QGraphicsScene
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QPixmap
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QPixmap, QFont
 from settings import import_settings
 from match.match import Match
 
@@ -144,6 +144,13 @@ class MatchViewGroup(QGroupBox):
                         pic = QPixmap(':resources/icons/map/wormB.png')
                     item = self.map_scene.addPixmap(pic.scaled(PIXEL_SIZE, PIXEL_SIZE))
                     item.setPos(cell['x'] * PIXEL_SIZE, cell['y'] * PIXEL_SIZE)
+                    health_label = QLabel()
+                    font = QFont()
+                    font.setBold(True)
+                    health_label.setFont(font)
+                    health_label.setText(str(cell['occupier']['id']) + ' - ' + str(cell['occupier']['health']))
+                    item = self.map_scene.addWidget(health_label)
+                    item.setPos((cell['x'] - 0.5) * PIXEL_SIZE, (cell['y'] - 1) * PIXEL_SIZE)
                 if 'powerup' in cell:
                     pic = QPixmap(IMAGE[cell['powerup']['type']])
                     item = self.map_scene.addPixmap(pic.scaled(PIXEL_SIZE, PIXEL_SIZE))

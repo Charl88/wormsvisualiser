@@ -20,6 +20,7 @@ class Round:
             try:
                 temp = json.load(open(state_file, 'r'))
                 states[player] = temp.pop('myPlayer')
+                states[player]['consecutiveDoNothingCount'] = temp.pop('consecutiveDoNothingCount')
                 temp.pop('opponents')
                 states['map'] = temp.pop('map')
                 self.match.state = temp
@@ -36,4 +37,5 @@ class Round:
         command['time'] = file.readline().strip().split(': ')[1]
         command['exception'] = file.readline().strip().split(': ')[1]
         file.close()
+        command['consecutiveDoNothingCount'] = self.state[player]['consecutiveDoNothingCount']
         return command

@@ -37,10 +37,6 @@
             {
               "name": "currentWormId",
               "label": "Current Worm ID: "
-            },
-            {
-              "name": "consecutiveDoNothingCount",
-              "label": "Consecutive Do-Nothing Count: "
             }
           ]
         },
@@ -75,6 +71,10 @@
                 {
                   "name": "exception",
                   "label": "Exception: "
+                },
+                {
+                  "name": "consecutiveDoNothingCount",
+                  "label": "Consecutive Do-Nothing Count: "
                 }
               ]
             },
@@ -103,6 +103,10 @@
                 {
                   "name": "exception",
                   "label": "Exception: "
+                },
+                {
+                  "name": "consecutiveDoNothingCount",
+                  "label": "Consecutive Do-Nothing Count: "
                 }
               ]
             }
