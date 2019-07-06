@@ -74,7 +74,7 @@
                 },
                 {
                   "name": "consecutiveDoNothingCount",
-                  "label": "Consecutive Do-Nothing Count: "
+                  "label": "Do Nothing Count: "
                 }
               ]
             },
@@ -106,7 +106,7 @@
                 },
                 {
                   "name": "consecutiveDoNothingCount",
-                  "label": "Consecutive Do-Nothing Count: "
+                  "label": "Do Nothing Count: "
                 }
               ]
             }
@@ -165,6 +165,28 @@
             {
               "name": "remainingWormSelections",
               "label": "Remaining Worm Selections :"
+            }
+          ]
+        },
+        {
+          "name": "worms_info_group",
+          "title": "Worms",
+          "row": 0,
+          "col": 3,
+          "rowSpan": 4,
+          "colSpan": 1,
+          "groups": [
+            {
+              "name": "player_A_worms_info_group",
+              "title": "Player A",
+              "row": 0,
+              "col": 0
+            },
+            {
+              "name": "player_B_worms_info_group",
+              "title": "Player B",
+              "row": 2,
+              "col": 0
             }
           ]
         }

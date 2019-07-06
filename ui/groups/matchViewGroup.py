@@ -20,7 +20,9 @@ class MatchViewGroup(QGroupBox):
     def __init__(self, ui_template):
         super(MatchViewGroup, self).__init__()
 
-        # Import settings
+        """
+        Import settings
+        """
         self.ui_template = ui_template
         self.settings = import_settings()
 
@@ -28,14 +30,19 @@ class MatchViewGroup(QGroupBox):
 
         self.setTitle('Match View')
 
-        # Layout
+        """
+        Layout
+        """
         self.grid_layout = QGridLayout()
         self.setLayout(self.grid_layout)
         self.grid_layout.setColumnStretch(1, 1)
         self.grid_layout.setColumnStretch(2, 1)
+        self.grid_layout.setColumnStretch(3, 1)
         self.grid_layout.setRowStretch(1, 1)
 
-        # Rounds list
+        """
+        Rounds list
+        """
         self.rounds_list = QListView()
         self.rounds_list_model = QStandardItemModel()
         self.rounds_list.setModel(self.rounds_list_model)
@@ -71,7 +78,7 @@ class MatchViewGroup(QGroupBox):
         self.map_view.setScene(self.map_scene)
         self.grid_layout.addWidget(self.map_view, 1, 1, 2, 2)
 
-        # Add groups and fields to the match view
+        # Add groups and field labels to the match view
         self.groups = {}
         self.populate_fields(self.ui_template, self.grid_layout)
 
@@ -81,14 +88,15 @@ class MatchViewGroup(QGroupBox):
             group = QGroupBox()
             group.setTitle(group_['title'])
             layout_ = QGridLayout()
+            layout_.setSpacing(0)
             group.setLayout(layout_)
             self.groups[group_['name']] = group
             coordinates = [i, 0]
             span = [1, 1]
             if 'row' in group_ and 'col' in group_:
                 coordinates = [group_['row'], group_['col']]
-            if 'colSpan' in group_ and 'rowSpan' in group_:
-                span = [group_['rowSpan'], group_['colSpan']]
+            if 'colSpan' in group_ or 'rowSpan' in group_:
+                span = [group_.get('rowSpan', 1), group_.get('colSpan', 1)]
             layout.addWidget(group, *coordinates, *span)
             group.fields = {}
             if 'fields' in group_:
@@ -197,6 +205,11 @@ class MatchViewGroup(QGroupBox):
             if group_key == 'player_B_info_group':
                 temp = [value for key, value in self.current_match.current_round.state.items() if 'B - ' in key]
                 self.update_labels(group, temp[0])
+            if group_key == 'player_A_worms_info_group':
+                players = [player for player in self.current_match.players]
+                self.populate_worms_info(group, players[0])
+            if group_key == 'player_B_worms_info_group':
+                self.populate_worms_info(group, players[1])
 
     @staticmethod
     def update_labels(group, state):
@@ -205,5 +218,21 @@ class MatchViewGroup(QGroupBox):
             if field_key == 'colour':
                 field.setIcon()
 
-    def match_directory_changed(self, *args):
-        pass
+    def populate_worms_info(self, group, player):
+        # Clears the layout before re-adding worms info
+        for i in reversed(range(group.layout().count())):
+            group.layout().itemAt(i).widget().setParent(None)
+        worms = self.current_match.current_round.state[player]['worms']
+        for worm in worms:
+            wormGroup = QGroupBox()
+            wormGroup_layout = QGridLayout()
+            wormGroup_layout.setSpacing(0)
+            wormGroup.setLayout(wormGroup_layout)
+            group.layout().addWidget(wormGroup)
+            for index, (key, value) in enumerate(worm.items()):
+                label_ = QLabel()
+                label_.setText(key + ': ')
+                label = QLabel()
+                label.setText(str(value))
+                wormGroup_layout.addWidget(label_, index, 0)
+                wormGroup_layout.addWidget(label, index, 1)

@@ -79,9 +79,6 @@ class MainWindow(QMainWindow):
         self.groups['match_log_group'].select_new_directory_button.clicked.connect(
             self.groups['match_log_group'].change_directory
         )
-        self.groups['match_log_group'].current_directory_line.textChanged.connect(
-            self.groups['match_view_group'].match_directory_changed
-        )
         self.groups['match_log_group'].match_logs_list.selectionModel().selectionChanged.connect(
             self.groups['match_view_group'].match_selected
         )
