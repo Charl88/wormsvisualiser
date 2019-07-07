@@ -8,13 +8,18 @@ from ui.mainWindow import MainWindow
 import resources_rc
 
 
-logger = logging.getLogger(__name__)
+logFormatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s',
+                                 '%Y-%m-%d %H:%M:%S')
+logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
-fh = logging.FileHandler('wormsvisualiser.log')
-formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s",
-                              "%Y-%m-%d %H:%M:%S")
-fh.setFormatter(formatter)
-logger.addHandler(fh)
+
+fileHandler = logging.FileHandler('wormsvisualiser.log')
+fileHandler.setFormatter(logFormatter)
+logger.addHandler(fileHandler)
+
+consoleHandler = logging.StreamHandler()
+consoleHandler.setFormatter(logFormatter)
+logger.addHandler(consoleHandler)
 
 
 def except_hook(type_, value, traceback):
